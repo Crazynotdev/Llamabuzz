@@ -1,0 +1,459 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   VARIABLES GLOBALES
+   ============================================ */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 262.1 83.3% 57.8%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 263.4 70% 50.4%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 263.4 70% 50.4%;
+  }
+}
+
+/* ============================================
+   STYLES DE BASE PERSONNALISÉS
+   ============================================ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Amélioration de la typographie */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  /* Style des sélections */
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+
+  /* Style de la scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/30;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full hover:bg-primary/50 transition-colors;
+  }
+
+  /* Focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+}
+
+/* ============================================
+   COMPOSANTS PERSONNALISÉS
+   ============================================ */
+@layer components {
+  /* Cartes avec effet de verre */
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .glass-card-dark {
+    @apply bg-black/10 backdrop-blur-md border border-white/10 shadow-xl;
+  }
+
+  /* Boutons avec gradient */
+  .btn-gradient-primary {
+    @apply relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-2 px-4 rounded-lg
+           hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300
+           active:scale-95;
+  }
+
+  .btn-gradient-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
+           -translate-x-full hover:translate-x-full transition-transform duration-700;
+  }
+
+  .btn-gradient-secondary {
+    @apply relative overflow-hidden bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-2 px-4 rounded-lg
+           hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300
+           active:scale-95;
+  }
+
+  /* Badges animés */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+  }
+
+  .badge-purple {
+    @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
+  }
+
+  /* Cards de battle */
+  .battle-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl 
+           transition-all duration-300 overflow-hidden
+           border border-gray-200 dark:border-gray-700;
+  }
+
+  .battle-card-header {
+    @apply h-2 bg-gradient-to-r from-purple-600 to-pink-600;
+  }
+
+  /* Avatar avec bordure animée */
+  .avatar-ring {
+    @apply rounded-full ring-2 ring-offset-2 ring-offset-background;
+  }
+
+  .avatar-ring-purple {
+    @apply avatar-ring ring-purple-500;
+  }
+
+  .avatar-ring-gold {
+    @apply avatar-ring ring-yellow-500;
+  }
+
+  .avatar-ring-silver {
+    @apply avatar-ring ring-gray-400;
+  }
+
+  .avatar-ring-bronze {
+    @apply avatar-ring ring-amber-700;
+  }
+
+  /* Stats cards */
+  .stat-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg 
+           transition-all duration-300 border border-gray-200 dark:border-gray-700;
+  }
+
+  .stat-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center mb-4
+           bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30;
+  }
+}
+
+/* ============================================
+   UTILITAIRES PERSONNALISÉS
+   ============================================ */
+@layer utilities {
+  /* Animations personnalisées */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.5s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  .animate-shine {
+    animation: shine 1.5s ease-in-out;
+  }
+
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-rainbow {
+    @apply bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 bg-clip-text text-transparent;
+  }
+
+  /* Background gradients */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-purple-600 to-pink-600;
+  }
+
+  .bg-gradient-secondary {
+    @apply bg-gradient-to-r from-blue-600 to-cyan-600;
+  }
+
+  .bg-gradient-success {
+    @apply bg-gradient-to-r from-green-500 to-emerald-500;
+  }
+
+  .bg-gradient-warning {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-500;
+  }
+
+  /* Effets de flou */
+  .backdrop-blur-custom {
+    @apply backdrop-blur-md bg-white/30 dark:bg-black/30;
+  }
+
+  /* Ombres personnalisées */
+  .shadow-soft {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.5);
+  }
+
+  .shadow-glow-pink {
+    box-shadow: 0 0 30px -5px rgba(236, 72, 153, 0.5);
+  }
+
+  /* Masques */
+  .mask-gradient {
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  }
+
+  /* Grilles */
+  .grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* ============================================
+   KEYFRAMES (ANIMATIONS)
+   ============================================ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate(-180deg) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   STYLES SPÉCIFIQUES À LLAMABUZZ
+   ============================================ */
+
+/* Hero section avec particules */
+.hero-particles {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-particles::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.hero-particles::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+  animation: pulse 4s ease-in-out infinite reverse;
+}
+
+/* Cards de battle avec effet 3D */
+.battle-card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.battle-card-3d:hover {
+  transform: rotateX(5deg) rotateY(5deg);
+}
+
+/* Effet de compteur en direct */
+.live-counter {
+  position: relative;
+}
+
+.live-counter::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* Style pour le podium */
+.podium-1 {
+  @apply bg-gradient-to-t from-yellow-400 to-yellow-300;
+  box-shadow: 0 10px 0 #b45309;
+}
+
+.podium-2 {
+  @apply bg-gradient-to-t from-gray-400 to-gray-300;
+  box-shadow: 0 10px 0 #4b5563;
+}
+
+.podium-3 {
+  @apply bg-gradient-to-t from-amber-700 to-amber-600;
+  box-shadow: 0 10px 0 #92400e;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+  
+  h1 {
+    @apply text-3xl;
+  }
+  
+  h2 {
+    @apply text-2xl;
+  }
+}
+
+/* ============================================
+   IMPRESSION
+   ============================================ */
+@media print {
+  .no-print {
+    display: none;
+  }
+  
+  body {
+    @apply bg-white text-black;
+  }
+}
