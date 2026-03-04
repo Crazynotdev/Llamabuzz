@@ -1,6 +1,7 @@
+'use client'
+
 import './globals.css'
 // ⚠️ obligatoire pour tous les composants client
-'use client'
 
 import Layout from "@/components/Layout"
 import Link from "next/link"
