@@ -1,15 +1,17 @@
-import './globals.css'
+'use client'
+
 import { ReactNode } from 'react'
+import Link from 'next/link'
 
-export const metadata = {
-  title: 'LLAMABUZZ',
-  description: 'Concours des participants LLAMABUZZ',
-}
-
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr">
-      <body>{children}</body>
-    </html>
+    <div>
+      <nav className="p-4 bg-blue-600 text-white flex gap-4">
+        <Link href="/">Accueil</Link>
+        <Link href="/battles">Battles</Link>
+        <Link href="/admin">Admin</Link>
+      </nav>
+      <main className="p-4">{children}</main>
+    </div>
   )
 }
